@@ -1,0 +1,15 @@
+/log/
+/bin/
+/example/
+/.settings/
+/saves/
+/data/
+/picture/
+/doc/
+*~
+*.log
+*.o
+*.pyc
+*.pb.cc
+*.pb.h
+*.pb2.py

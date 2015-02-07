@@ -1,0 +1,74 @@
+double:false
+device:0
+numepoch: 100
+rnnrbm:true
+gpu:false
+sample:false
+log:true
+loglevel:2
+learnrate:0.01
+plus_gradient:true
+err_in_train:true
+variable_length:true
+valid:false
+
+datap{
+T:2523
+numrepeat:1
+name:"text"
+numsample:1
+inputsize:88
+path_image: "/home/lq/Git/layernet/data/Muse_train.txt"
+shuffle:false
+thread:false
+batchsize:1
+
+}
+datap_valid{
+T:2523
+inputsize:88
+numsample:1
+name:"text"
+path_image: "/home/lq/Git/layernet/data/Muse_valid.txt"
+shuffle:false
+thread:false
+batchsize:1
+numrepeat:1
+}
+trainer
+{
+load:false
+save:true
+learnrate_strategy:1
+num_round:3000000
+num_trainround:1000
+print_interval:200
+snapfrom_db:"./saves/muse_baseline_lstm/round510000_weight.txt"
+snapto_db:"./saves/muse_baseline_lstm"
+}
+
+layers{
+ name : "input"
+ type : DATA
+ num_out: 88
+}
+layers{
+name:"lstm"
+type:LSTM
+num_in:88
+num_out:88
+from:"input"
+delay_from:"lstm"
+traininit:true
+}
+layers{
+ name : "rbm"
+ type: RBM
+ num_out: 88
+ from : "input" 
+ delay_from:"lstm"
+ delay_from:"rbm"
+ cd_n:5
+ traininit:true
+}
+

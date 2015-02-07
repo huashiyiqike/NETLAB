@@ -1,0 +1,70 @@
+double:false
+device:0
+numepoch: 100
+rnnrbm:true
+gpu:true
+sample:false
+log:true
+loglevel:2
+learnrate:0.01
+err_in_train:true
+plus_gradient:true
+
+
+datap{
+T:100
+numrepeat:1
+name:"ball"
+numsample:100
+inputsize:225
+path_image: "/media/work/Datasets/ball"
+shuffle:false
+thread:false
+batchsize:10
+}
+datap_test{
+inputsize:225
+numsample:100
+T:100
+name:"ball"
+path_image: "/media/work/Datasets/ball"
+shuffle:false
+thread:false
+batchsize:10
+}
+trainer
+{
+load:true
+save:true
+learnrate_strategy:1
+num_round:2000000
+print_interval:1
+snapfrom_db:"./saves/ball_lstm/round200000_weight.txt"
+snapto_db:"./saves/ball_lstm"
+}
+layers{
+ name : "input"
+ type : DATA
+ num_out: 225
+}
+layers{
+name:"lstm"
+type:LSTM
+num_in:300
+num_out:300
+from:"input"
+delay_from:"lstm"
+traininit:true
+}
+layers{
+ name : "rbm"
+ type: RBM
+ num_out: 300
+ from : "input" 
+ delay_from:"lstm"
+ delay_from:"rbm"
+ cd_n:50
+ traininit:true
+}
+
+

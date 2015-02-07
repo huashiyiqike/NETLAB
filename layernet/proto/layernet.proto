@@ -1,0 +1,122 @@
+message LayerProto{
+ 
+  required LayerType type=6;
+required string name=1;
+/**for LSTM, num_out must be divisible by num_in*/
+required int32 num_out=2;
+/* may or may not need input activation*/
+optional int32 num_in=3[default=0];
+
+/* for building connections*/
+repeated string from=4;
+repeated string delay_from=89;
+repeated string to =5; /** for bp*/
+optional bool nobias=8[default=false];
+optional int32 num_cell=7;
+optional string alias=99;
+optional int32 cd_n=10[default=5];
+optional bool spy=29[default=false];
+optional bool visgauss=9[default=false];
+optional int32 kernel_size=77;
+optional int32 stride=78;
+optional int32 duration=54[default=0];
+optional bool traininit=19[default=false];// forward and bp 0, int start=0;
+enum LayerType {
+    // "NONE" layer type is 0th enum element so that we don't cause confusion
+    // by defaulting to an existent LayerType (instead, should usually error if
+    // the type is unspecified).
+    NONE=0;
+    DATA = 1;
+    RBM=2;
+    LSTM=3;
+    FULL_CONNECT=4;
+    VIS=5;
+    SIGMOID=6;
+  }
+}
+
+message DataProto{
+required string name=1;
+optional string path_image=3;
+optional string path_label=4;
+optional string pyname=111[default="convert"]; // for load different data, change this
+optional bool shuffle=5[default=false];
+optional bool thread=2[default=false];
+optional int32 batchsize=6[default=1];
+optional int32 inputsize=100;
+optional int32 fileindex=98[default=1];
+optional int32 n_balls=32[default=3];
+// T may not be exact length
+optional int32 T=8;
+// may not know sample size
+optional int32 numsample=7;
+/** for random length data*/
+optional int32 minimum_length=43[default=10];
+optional bool spy=9[default=false];
+optional int32 numrepeat=33[default=1];
+optional int32 duration=54[default=0];
+}
+
+message TrainerProto{
+required int32 num_round=1;
+optional int32 num_trainround=5[default=99999999]; //for large training set break for validation
+required int32 print_interval=2;
+optional bool batch=4[default=false];
+ required string snapfrom_db=13; 
+ required string snapto_db=14; 
+ required bool load=23;
+ optional bool save=24;
+// 0 is contant, 1 is adaptive;
+ optional int32 learnrate_strategy=3[default=0]; 
+}
+
+message Task{
+  required TrainerProto trainer=2;
+  optional bool double=55;
+	required int32 numepoch=3;
+	optional int32 res=51[default=30];
+	optional int32 device=47[default=0];
+	required bool rnnrbm=46;
+	optional int32 numh=7[default=400];
+	required bool log=48[default=true];
+	required DataProto datap=98; // for initialization of net
+  optional DataProto datap_valid=97;
+  optional DataProto datap_test=99;
+  optional bool valid=87;
+  optional bool test=88;
+  optional int32 Tmax=101;
+	optional float momentum=9 [default=0.9];
+	optional float learnrate=10[default=0.1];
+	optional float weightdecay=11[default=0];
+	optional bool gpu=12[default=true];
+	optional bool plus_gradient=4[default=false];
+
+ optional int32 loglevel=96[default=1];
+ optional bool showerr=102[default=true];
+ optional int32 save_interval=500[default=5000];
+ optional bool sample_text=501[default=true];
+	optional bool sample=16[default=false];
+	optional int32 sample_num=116[default=1];
+	optional bool train=17[default=false];
+	optional bool checkgradient=103[default=false];
+	optional bool variable_length=105[default=false];
+ optional int32 update_period=22[default=1];
+ optional LearnMethod learnmethod=23;
+ enum LearnMethod{
+ NONE_DEFINE=0;
+ SGD=1;
+ RPROP=2;
+}
+	
+//	required int32 weight_size=100;
+	repeated LayerProto layers=1;
+	//use rbm reconstruction error
+	optional bool err_in_train=110[default=false];
+}  
+message TensorProto{
+	repeated double float_data=1;
+	required int32 dim0=2;
+	optional int32 dim1=3[default=0];
+	optional int32 dim2=4[default=0];
+	optional int32 dim3=5[default=0];
+}
