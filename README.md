@@ -31,5 +31,4 @@ Related Projects
 Disclaimer
 ====
 This code is only for research purpose; 
-It may not be the version I am using and I probably have no time to maintain it anymore. 
 Please note this code should be used at your own risk. 
