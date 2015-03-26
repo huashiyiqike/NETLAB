@@ -1,10 +1,10 @@
-# netlab
+# NETLAB
 
 A C++ neural network libray for sequences mainly, 
 focusing on Long Short-term Memory (LSTM)
 and Restricted Boltsmann Machine (RBM) Layers.  
 
-Creater: Qi Lyu
+Creater&Maintainer: Qi Lyu
 
 Features
 =====
