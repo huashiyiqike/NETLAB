@@ -3,6 +3,7 @@
 A C++ neural network libray for sequences mainly, 
 focusing on Long Short-term Memory (LSTM)
 and Restricted Boltsmann Machine (RBM) Layers.  
+It is accompanied with a paper for reference: [Polyphonic Music Modelling with LSTM-RTRBM], ACM Multimedia, 2015. 
 
 Creater&Maintainer: Qi Lyu
 
@@ -32,3 +33,5 @@ Disclaimer
 ====
 This code is only for research purpose; 
 Please note this code should be used at your own risk. 
+
+[Polyphonic Music Modelling with LSTM-RTRBM]: to be determined
